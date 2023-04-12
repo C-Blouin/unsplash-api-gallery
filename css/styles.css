@@ -1,0 +1,245 @@
+@charset "utf-8";
+
+/*
+JavaScript Assignment 4 - APIs
+
+Christopher Blouin 
+
+Here is the documentation for the Unsplash API: https://unsplash.com/documentation#get-a-random-photo
+*/
+
+/* Import the Raleway font family */
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;900&display=swap");
+
+/* Start of Global Styles */
+html {
+  /* Set the html base font size to 112.5%, the root font. */
+  font-size: 112.5%;
+  /* Set the global font family in the root html styles. */
+  font-family: "Raleway", sans-serif;
+
+  background-color: #f8f8f8;
+  background-color: #0f0f0f;
+}
+
+/* End of Global Styles */
+
+/* Start of Heading Styles */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  padding: 0;
+  margin: 0;
+}
+
+/* Set the base font of the h1 element that will contain the clipped random image in the JavaScript. */
+h1 {
+  font-size: 6rem;
+  /* Add some white space in between letters. */
+  letter-spacing: 0.4rem;
+  font-weight: 900;
+}
+
+h1,
+#desc {
+  padding-bottom: 2rem;
+}
+
+/* End of Heading Styles */
+
+/* Start of Grid Styles */
+
+#container {
+  /* Set the parent container with id #container to display all children as grid items. */
+  display: grid;
+  /* Center and align the content to the center. */
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  /* Declare the template areas of the grid. */
+  grid-template-areas: "image-section quote-section";
+  /* Each area will occupy 1 column of the grid, creating a two column layout to start. */
+  grid-template-columns: 1fr 1fr;
+  /* Set a minimum height of the container to 100 vertical height of the viewport. */
+  min-height: 100vh;
+}
+
+/* Declare the grid areas for each of the grid columns. */
+#container > div {
+  grid-area: image-section;
+}
+
+#container > section:nth-of-type(2) {
+  grid-area: quote-section;
+}
+
+/* End of Container & Grid Styles */
+
+/* Start of Image Container Styles */
+#imageContainer {
+  margin: 0 auto;
+  max-width: 800px;
+}
+
+/* Apply a transition on the Image, flex list items, and button elements. */
+#generatedImage,
+ul li,
+button {
+  transition: transform 0.2s ease-in-out;
+}
+
+/* Set a max width of the randomized image to prevent images from scaling too large, set the object fit property to contain the images proportions in the defined width. */
+#generatedImage {
+  margin: 2rem 0;
+  max-width: 800px;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+/* Set a max viewport height of the imageDetails div element */
+#imageDetails {
+  /* Add some white space on the top and bottom of the element. */
+  margin: 0 3rem;
+  max-height: 80vh;
+}
+
+button {
+  border: none;
+  padding: 1rem 2rem;
+  margin-bottom: 2rem;
+}
+
+/* Hover styles for the random image, button, and li elements. Each element will contain a transform of the X axis. */
+#generatedImage:hover {
+  transform: translateX(0.75rem);
+}
+
+/* Apply a subtle inset box shadow to the change image button, with a translate effect to let user the know they the mouse cursor is on the button. */
+button:hover {
+  box-shadow: inset 3px 4px 5px rgba(0, 0, 0, 0.35);
+  transform: translateX(-0.6rem);
+  transition: 0.4s;
+  /* Set the cursor property to pointer, let the user know the mouse is hovering the button. */
+  cursor: pointer;
+}
+
+/* Change background-color of the li elements and button element on hover for text contrast. */
+ul li:hover,
+button:hover {
+  background-color: #ebd283;
+}
+
+/* End of Image Container Styles */
+
+/* Start of Unordered List #detailItems Styles */
+
+/* Slight margins for the unordered list div element container. */
+#detailItems {
+  margin: 3rem;
+}
+
+/* Display the unordered list as flex to allow the list-items to flexibly adjust to the screen width. */
+ul {
+  display: flex;
+  flex-wrap: wrap;
+  /* Align items and text to the center of the container. */
+  text-align: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 2rem;
+}
+
+/* set the font color of the primary elements to white for contrast of the black background. */
+h3,
+p,
+a {
+  color: white;
+}
+
+/* Set the inner text of the li elements and button text to a dark grey. */
+ul > li > a,
+ul li,
+button {
+  color: #1d1d1d;
+}
+
+/* Set paragraph anchor elements to light orange and increase it's boldness with font-weight */
+p > a {
+  color: #ebd283;
+  font-weight: bold;
+}
+
+/* Add a slight transition on the paragraph anchor hover, signifying to the user they are hovering on a hyperlink. */
+p > a:hover {
+  color: #f8f8f8;
+  transition: 0.3s;
+}
+
+/* Set the background color of the li and button element to white. */
+ul li,
+button {
+  background-color: #f8f8f8;
+}
+
+/* Set and inset box shadow to li elements for a subtle inner shadow effect. */
+ul li {
+  padding: 0.5rem 0.75rem;
+  list-style: none;
+  box-shadow: inset 3px 4px 8px #474747;
+}
+
+/* Translate the li elements on hover. */
+ul li:hover {
+  transform: translateY(0.2rem) translateX(-0.3rem);
+  cursor: pointer;
+}
+
+/* Change the li and li anchor elements, and button hover text to dark grey to contrast the light orange hover background color.  */
+ul li:hover,
+ul li a:hover,
+button:hover {
+  color: #222222;
+}
+
+/* End of Unordered List #detailItems Styles */
+
+/* 
+Adjust the grid layout at 1200px device max width
+
+Change the layout from a two column layout to a stacking single fractional scaling column.
+*/
+
+@media screen and (max-width: 1200px) {
+  /* Reduce the primary h1 size to prevent any document overflow on smaller device widths. */
+  h1 {
+    font-size: 3rem;
+  }
+
+  /* Adjust grid template to allow each grid area to occupy all available space in a given column */
+  #container {
+    grid-template-areas:
+      "image-section"
+      "quote-section";
+    grid-template-columns: 1fr;
+  }
+
+  /* Reduce the image height and set a fixed width of 100% to prevent the document content from overflowing. */
+  #generatedImage {
+    width: 100%;
+    height: 380px;
+  }
+
+  /* Remove the margins of the #imageDetails div element at smaller devive sizes to allow more fluid scalability. */
+  #imageDetails {
+    margin: 0;
+  }
+
+  /* Remove margins on the unordered list, but also add some padding to the bottom of the list for some white space on smaller devices. */
+  #detailItems {
+    margin: 0;
+    padding: 0 0 2rem 0;
+  }
+}
